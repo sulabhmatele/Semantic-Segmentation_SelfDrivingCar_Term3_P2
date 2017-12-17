@@ -55,18 +55,23 @@ def layers(vgg_layer3_out, vgg_layer4_out, vgg_layer7_out, num_classes):
     :return: The Tensor for the last layer of output
     """
     # TODO: Implement function
-    conv_1x1 = tf.layers.conv2d(vgg_layer7_out, num_classes, 1, padding='same',
+    conv_1 = tf.layers.conv2d(vgg_layer7_out, num_classes, 1, padding='same',
                                 kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
     # Upsample - Deconvolution
-    output1 = tf.layers.conv2d_transpose(conv_1x1, num_classes, 4, 2, padding='same',
+    output1 = tf.layers.conv2d_transpose(conv_1, num_classes, 4, 2, padding='same',
                                         kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
 
+    conv_2 = tf.layers.conv2d(vgg_layer4_out, num_classes, 1, padding='same',
+                                kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
     # Add skip layer
-    skip1 = tf.add(output1, vgg_layer4_out)
+    skip1 = tf.add(conv_2, output1)
     output2 = tf.layers.conv2d_transpose(skip1, num_classes, 4, 2, padding='same',
                                         kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
 
-    skip2 = tf.add(output2, vgg_layer3_out)
+    conv_3 = tf.layers.conv2d(vgg_layer3_out, num_classes, 1, padding='same',
+                                kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
+
+    skip2 = tf.add(conv_3, output2)
     output = tf.layers.conv2d_transpose(skip2, num_classes, 16, 8, padding='same',
                                         kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3))
     
@@ -119,7 +124,7 @@ def train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_l
     print("Training...")
     print()
 
-    for i in epochs:
+    for i in range(epochs):
         for image, label in get_batches_fn(batch_size):
             _,loss = sess.run([train_op, cross_entropy_loss],
                                 feed_dict={input_image:image, correct_label:label, keep_prob:0.7, learning_rate:0.001})
@@ -140,11 +145,8 @@ def run():
     data_dir = './data'
     runs_dir = './runs'
 
-    batch_size = 32
-    learn_rate = 0.001
     correct_label = tf.placeholder(tf.int32, [None, None, None, num_classes], name='correct_label')
     learning_rate = tf.placeholder(tf.float32, name='learning_rate')
-    num_epochs = 6
 
 
     tests.test_for_kitti_dataset(data_dir)
@@ -158,6 +160,8 @@ def run():
 
     with tf.Session() as sess:
         # Path to vgg model
+        num_epochs = 6
+        batch_size = 32
         vgg_path = os.path.join(data_dir, 'vgg')
         # Create function to get batches
         get_batches_fn = helper.gen_batch_function(os.path.join(data_dir, 'data_road/training'), image_shape)
