@@ -166,7 +166,7 @@ def run():
 
     with tf.Session() as sess:
         # Path to vgg model
-        num_epochs = 30
+        num_epochs = 50
         batch_size = 8
         vgg_path = os.path.join(data_dir, 'vgg')
         # Create function to get batches
