@@ -55,10 +55,10 @@ Deconvolution also referred as upsampling process since we upsample the 1x1 imag
 ### Hyperparameters
 
 ```
-Epochs                 : 50
-Batch size            : 8
-Learning rate      : 0.001
-Keep Probability : 0.6
+Epochs            : 50
+Batch size        : 8
+Learning rate     : 0.001
+Keep Probability  : 0.6
 ```
 
 ### Setup
