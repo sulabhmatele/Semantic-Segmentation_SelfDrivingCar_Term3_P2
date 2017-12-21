@@ -4,6 +4,11 @@ This repo contains the submissions and related material for Udacity "Self Drivin
 ## Introduction
 
 The main goal of this project is to perform semantic segmentation on an image to highlight the road, or the drivable path for self driving car.
+
+![alt text](https://github.com/sulabhmatele/Semantic-Segmentation_SelfDrivingCar_Term3_P2/blob/master/runs_epochs50/1513740327.5142293/umm_000008.png)
+
+![alt text](https://github.com/sulabhmatele/Semantic-Segmentation_SelfDrivingCar_Term3_P2/blob/master/runs_epochs50/1513740327.5142293/um_000017.png)
+
 Project labels the pixels of a road in images using a Fully Convolutional Network (FCN).
 ## Datasets
 
@@ -15,7 +20,10 @@ For the project we use
 ## Fully Convolutional Netwrok
 
 To save the spacial information for the image and locate the object on a part of image, we need a technique which preserves this information.
-Fully convolutional neural network is a technieque which can be used here, which preserves the spacial information which is generally lost in general convolutional neural network.
+
+![alt text](https://github.com/sulabhmatele/Semantic-Segmentation_SelfDrivingCar_Term3_P2/blob/master/images/FullFCN_Architecture.png)
+
+Fully convolutional neural network is a technieque which preserves the spacial information, this information is generally lost in general convolutional neural network.
 
 Fully convolution network implementation can be viewed in following steps:
 
@@ -25,7 +33,11 @@ Fully convolution network implementation can be viewed in following steps:
 
 3. Implementing skip layer connection for better learning.
 
+![alt text](https://github.com/sulabhmatele/Semantic-Segmentation_SelfDrivingCar_Term3_P2/blob/master/images/SkipConnections.png)
+
 The whole technique also referred as Encoder decoder pattern, where the pretrained model is considered as Encoder and the deconvolution model is referred as Decoder.
+
+![alt text](https://github.com/sulabhmatele/Semantic-Segmentation_SelfDrivingCar_Term3_P2/blob/master/images/FCN_EnDeView.png)
 
 ## Steps of implementation
 
