@@ -5,6 +5,8 @@ This repo contains the submissions and related material for Udacity "Self Drivin
 
 The main goal of this project is to perform semantic segmentation on an image to highlight the road, or the drivable path for self driving car.
 
+# [Click here for small presentation video on output images](https://www.youtube.com/watch?v=Vkf4cMnO7ig&t=31s)
+
 - From Test image
 
 ![alt text](https://github.com/sulabhmatele/Semantic-Segmentation_SelfDrivingCar_Term3_P2/blob/master/images/umm_000008.png)
